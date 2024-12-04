@@ -79,3 +79,12 @@ function Global:Speak-Text {
 
 Write-Host "La fonction Speak-Text a été installée."
 
+
+# Créer un alias global pour Speak-Text
+if (Test-Path Alias:spk) {
+    Write-Host "L'alias 'spk' existe déjà. Réinstallation en cours..."
+    Remove-Item -Path Alias:spk -ErrorAction SilentlyContinue
+}
+
+Set-Alias -Name spk -Value Speak-Text -Scope Global
+Write-Host "L'alias 'spk' a été créé. Vous pouvez utiliser 'spk \"votre texte\"'."
