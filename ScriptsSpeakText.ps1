@@ -88,3 +88,20 @@ if (Test-Path Alias:spk) {
 
 Set-Alias -Name spk -Value Speak-Text -Scope Global
 Write-Host "L'alias 'spk' a été créé. Vous pouvez utiliser 'spk \"votre texte\"'."
+
+# Créer une fonction pour convertir la sortie en chaîne et la lire
+function Global:tospk {
+    param (
+        [Parameter(ValueFromPipeline = $true, Mandatory = $true)]
+        $InputObject
+    )
+
+    process {
+        # Convertir l'entrée en texte lisible
+        $Text = $InputObject | Out-String
+        # Envoyer le texte à Speak-Text
+        spk $Text
+    }
+}
+
+Write-Host "La fonction 'tospk' a été installée. Utilisez-la pour lire des commandes via le pipeline."
